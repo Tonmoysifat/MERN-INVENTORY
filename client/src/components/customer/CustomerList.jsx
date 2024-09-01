@@ -4,7 +4,8 @@ import {Link} from "react-router-dom";
 import {AiOutlineDelete, AiOutlineEdit} from "react-icons/ai";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
-import {CustomerListRequest} from "../../apiRequest/CustomerApiRequest.js";
+import {CustomerListRequest, DeleteCustomerRequest} from "../../apiRequest/CustomerApiRequest.js";
+import {DeleteAlert} from "../../helper/DeleteAlert.js";
 
 const CustomerList = () => {
     let [searchKeyword, setSearchKeyword] = useState("0");
@@ -43,6 +44,15 @@ const CustomerList = () => {
         rows.forEach(row => {
             row.style.display = (row.innerText.includes(e.target.value)) ? '' : 'none'
         })
+    }
+    const DeleteItem = async (id) => {
+        let Result = await DeleteAlert();
+        if (Result.isConfirmed) {
+            let DeleteResult = await DeleteCustomerRequest(id)
+            if (DeleteResult) {
+                await CustomerListRequest(1, perPage, searchKeyword);
+            }
+        }
     }
     return (
         <Fragment>
@@ -116,8 +126,8 @@ const CustomerList = () => {
                                                                           className="btn text-info btn-outline-light p-2 mb-0 btn-sm">
                                                                         <AiOutlineEdit size={15}/>
                                                                     </Link>
-                                                                    <button
-                                                                        className="btn btn-outline-light text-danger p-2 mb-0 btn-sm ms-2">
+                                                                    <button onClick={() => DeleteItem(item._id)}
+                                                                            className="btn btn-outline-light text-danger p-2 mb-0 btn-sm ms-2">
                                                                         <AiOutlineDelete size={15}/>
                                                                     </button>
                                                                 </td>

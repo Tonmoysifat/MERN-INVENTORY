@@ -100,3 +100,29 @@ export const CustomerDetailsByIdRequest = async (id) => {
         return false
     }
 }
+
+export async function DeleteCustomerRequest(id) {
+    try {
+        store.dispatch(showLoader())
+        let URL = `/api/DeleteCustomer/${id}`
+        const result = await axios.get(URL)
+        store.dispatch(hideLoader())
+        if (result.status === 200 && result.data['status'] === "Associated") {
+            toast.error(result.data['data'])
+            return false;
+        }
+        if (result.status === 200 && result.data['status'] === "Success") {
+            toast.success("Deleted Successful");
+            return true
+        }
+        else {
+            toast.error("Request Fail! Try Again")
+            return false;
+        }
+    }
+    catch (e) {
+        toast.error("Something Went Wrong")
+        store.dispatch(hideLoader())
+        return false
+    }
+}
