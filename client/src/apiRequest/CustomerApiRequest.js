@@ -32,14 +32,22 @@ export const CustomerListRequest = async (pageNo, perPage, SearchArray) => {
         toast.error("Something went Wrong")
     }
 }
-export const CreateCustomerRequest = async (postBody) => {
+export const CreateCustomerRequest = async (postBody,id) => {
     try {
         store.dispatch(showLoader())
         let URL = `/api/CreateCustomer`
+        if (id!==null){
+            URL = `/api/UpdateCustomer/${id}`
+        }
         let result = await axios.post(URL, postBody)
         store.dispatch(hideLoader())
         if (result.status === 200 && result.data["status"] === "Success") {
-            toast.success("Created Successfully")
+            if (id!==null){
+                toast.success("Updated Successfully")
+            }
+            else{
+                toast.success("Created Successfully")
+            }
             store.dispatch(setFormValueReset())
             return true
         } else if (result.status === 200 && result.data["status"] === "Fail") {
@@ -57,4 +65,38 @@ export const CreateCustomerRequest = async (postBody) => {
         return false
     }
 
+}
+export const CustomerDetailsByIdRequest = async (id) => {
+    try {
+        store.dispatch(showLoader())
+        let URL = `/api/CustomerDetailsById/${id}`
+        let result = await axios.get(URL)
+        store.dispatch(hideLoader())
+        if (result.status === 200 && result.data["status"] === "Success") {
+            store.dispatch(setCustomerFormValue({
+                fieldName: "CustomerName",
+                value: result.data["data"][0]["CustomerName"]
+            }));
+            store.dispatch(setCustomerFormValue({
+                fieldName: "CustomerPhone",
+                value: result.data["data"][0]["CustomerPhone"]
+            }));
+            store.dispatch(setCustomerFormValue({
+                fieldName: "CustomerEmail",
+                value: result.data["data"][0]["CustomerEmail"]
+            }));
+            store.dispatch(setCustomerFormValue({
+                fieldName: "CustomerAddress",
+                value: result.data["data"][0]["CustomerAddress"]
+            }));
+            return true
+        } else {
+            toast.error("Something went Wrong")
+            return false
+        }
+    } catch (e) {
+        store.dispatch(hideLoader())
+        toast.error("Something went Wrong")
+        return false
+    }
 }

@@ -32,8 +32,9 @@ const App = () => {
                         <Route exact path="/profile" element={<ProfilePage/>}/>
                         <Route exact path="/brand-list" element={<BrandListPage/>}/>
                         <Route exact path="/category-list" element={<CategoryListPage/>}/>
-                        <Route exact path="/new-customer" element={<CustomerCreateUpdatePage/>}/>
                         <Route exact path="/customer-list" element={<CustomerListPage/>}/>
+                        <Route exact path="/new-customer" element={<CustomerCreateUpdatePage/>}/>
+                        <Route exact path="/edit-customer" element={<CustomerCreateUpdatePage/>}/>
                         <Route exact path="/supplier-list" element={<SupplierListPage/>}/>
                         <Route exact path="/purchase-list" element={<PurchaseListPage/>}/>
                         <Route exact path="/sale-list" element={<SaleListPage/>}/>

@@ -112,7 +112,7 @@ const CustomerList = () => {
                                                                     className="text-xs text-start">{item.CustomerEmail}</p>
                                                                 </td>
                                                                 <td>
-                                                                    <Link to={`/BrandCreateUpdatePage?id=${item._id}`}
+                                                                    <Link to={`/edit-customer?id=${item._id}`}
                                                                           className="btn text-info btn-outline-light p-2 mb-0 btn-sm">
                                                                         <AiOutlineEdit size={15}/>
                                                                     </Link>
