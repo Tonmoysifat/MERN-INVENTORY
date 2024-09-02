@@ -20,6 +20,10 @@ import ProductListPage from "./pages/product/ProductListPage.jsx";
 import ExpenseListPage from "./pages/expense/ExpenseListPage.jsx";
 import ExpenseTypeListPage from "./pages/expenseType/ExpenseTypeListPage.jsx";
 import CustomerCreateUpdatePage from "./pages/customer/CustomerCreateUpdatePage.jsx";
+import SupplierCreateUpdatePage from "./pages/supplier/SupplierCreateUpdatePage.jsx";
+import ExpenseTypeCreateUpdatePage from "./pages/expenseType/ExpenseTypeCreateUpdatePage.jsx";
+import ExpenseCreateUpdatePage from "./pages/expense/ExpenseCreateUpdatePage.jsx";
+
 
 const App = () => {
     if (getToken()) {
@@ -36,12 +40,18 @@ const App = () => {
                         <Route exact path="/new-customer" element={<CustomerCreateUpdatePage/>}/>
                         <Route exact path="/edit-customer" element={<CustomerCreateUpdatePage/>}/>
                         <Route exact path="/supplier-list" element={<SupplierListPage/>}/>
+                        <Route exact path="/new-supplier" element={<SupplierCreateUpdatePage/>}/>
+                        <Route exact path="/edit-supplier" element={<SupplierCreateUpdatePage/>}/>
                         <Route exact path="/purchase-list" element={<PurchaseListPage/>}/>
                         <Route exact path="/sale-list" element={<SaleListPage/>}/>
                         <Route exact path="/return-list" element={<ReturnListPage/>}/>
                         <Route exact path="/product-list" element={<ProductListPage/>}/>
                         <Route exact path="/expense-list" element={<ExpenseListPage/>}/>
+                        <Route exact path="/new-expense" element={<ExpenseCreateUpdatePage/>}/>
+                        <Route exact path="/edit-expense" element={<ExpenseCreateUpdatePage/>}/>
                         <Route exact path="/expense-type-list" element={<ExpenseTypeListPage/>}/>
+                        <Route exact path="/new-expense-type" element={<ExpenseTypeCreateUpdatePage/>}/>
+                        <Route exact path="/edit-expense-type" element={<ExpenseTypeCreateUpdatePage/>}/>
                     </Routes>
                 </BrowserRouter>
             </Fragment>

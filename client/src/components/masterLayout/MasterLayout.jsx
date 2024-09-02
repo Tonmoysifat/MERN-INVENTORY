@@ -1,16 +1,15 @@
 import React, {Fragment, useRef} from 'react';
 import {Toaster} from "react-hot-toast";
-import {Accordion, Container, Nav, Navbar} from "react-bootstrap";
-// import Nav from 'react-bootstrap/Nav';
+import {Accordion, Container, Navbar} from "react-bootstrap";
 import {AiOutlineBank, AiOutlineLogout, AiOutlineMenu, AiOutlineUnorderedList, AiOutlineUser} from "react-icons/ai";
-import {getUserDetails, removeSession} from "../../helper/SessoinHelper.js";
+import {getUserDetails} from "../../helper/SessoinHelper.js";
 import logo from "../../assets/images/Logo.svg"
 import {RiDashboardLine} from "react-icons/ri";
 import {BsBagPlus, BsBagX, BsBox, BsCartPlus, BsCircle, BsGraphUp, BsPeople} from "react-icons/bs";
 import {TbTruckDelivery} from "react-icons/tb";
 import {IoCreateOutline} from "react-icons/io5";
 import {LogoutRequest} from "../../apiRequest/UserApiRequest.js";
-import {Link, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 const MasterLayout = (props) => {
     let contentRef, sideNavRaf, topNavRef = useRef()
@@ -81,7 +80,7 @@ const MasterLayout = (props) => {
                 {
                     title: "New Supplier",
                     icon: <BsCircle size={16} className="side-bar-subitem-icon"/>,
-                    url: "/SupplierCreateUpdatePage",
+                    url: "/new-supplier",
                 },
                 {
                     title: "Supplier List",
@@ -98,7 +97,7 @@ const MasterLayout = (props) => {
                 {
                     title: "New Expense Type",
                     icon: <BsCircle size={16} className="side-bar-subitem-icon"/>,
-                    url: "/ExpenseTypeCreateUpdatePage",
+                    url: "/new-expense-type",
                 },
                 {
                     title: "Expense Type List",
@@ -108,7 +107,7 @@ const MasterLayout = (props) => {
                 {
                     title: "New Expense",
                     icon: <IoCreateOutline size={16} className="side-bar-subitem-icon"/>,
-                    url: "/ExpenseCreateUpdatePage",
+                    url: "/new-expense",
                 },
                 {
                     title: "Expense List",

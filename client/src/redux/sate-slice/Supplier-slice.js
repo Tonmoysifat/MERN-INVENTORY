@@ -4,6 +4,12 @@ export const supplierSlice = createSlice({
     initialState: {
         List: [],
         ListTotal: 0,
+        FormValue: {
+            SupplierName: "",
+            SupplierPhone: "",
+            SupplierEmail: "",
+            SupplierAddress: ""
+        }
     },
     reducers: {
         setSupplierList: (state, action) => {
@@ -11,9 +17,15 @@ export const supplierSlice = createSlice({
         },
         setSupplierListTotal: (state, action) => {
             state.ListTotal = action.payload
+        },
+        setSupplierFormValue: (state, action) => {
+            state.FormValue[`${action.payload.fieldName}`] = action.payload.value
+        },
+        setSupplierFormValueReset: (state, action) => {
+            Object.keys(state.FormValue).forEach((i) => state.FormValue[i] = "");
         }
     }
 });
 
-export const {setSupplierList, setSupplierListTotal} = supplierSlice.actions;
+export const {setSupplierList, setSupplierListTotal,setSupplierFormValue,setSupplierFormValueReset} = supplierSlice.actions;
 export default supplierSlice.reducer;

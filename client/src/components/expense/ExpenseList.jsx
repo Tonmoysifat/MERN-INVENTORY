@@ -5,7 +5,9 @@ import {AiOutlineDelete, AiOutlineEdit, AiOutlineEye} from "react-icons/ai";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
 import CurrencyFormat from "react-currency-format";
-import {ExpenseListRequest} from "../../apiRequest/ExpenseApiRequest.js";
+import {DeleteExpenseRequest, ExpenseListRequest} from "../../apiRequest/ExpenseApiRequest.js";
+import {DeleteAlert} from "../../helper/DeleteAlert.js";
+import {DeleteExpenseTypeRequest, ExpenseTypeListRequest} from "../../apiRequest/ExpenseTypeApiRequest.js";
 
 const ExpenseList = () => {
     let [searchKeyword, setSearchKeyword] = useState("0");
@@ -45,8 +47,14 @@ const ExpenseList = () => {
             row.style.display = (row.innerText.includes(e.target.value)) ? '' : 'none'
         })
     }
-    const DetailsPopUp = () => {
-
+    const DeleteItem = async (id) => {
+        let Result = await DeleteAlert();
+        if (Result.isConfirmed) {
+            let DeleteResult = await DeleteExpenseRequest(id)
+            if (DeleteResult) {
+                await ExpenseListRequest(1, perPage, searchKeyword);
+            }
+        }
     }
     return (
         <Fragment>
@@ -127,11 +135,11 @@ const ExpenseList = () => {
                                                                 </p>
                                                                 </td>
                                                                 <td>
-                                                                    <Link to={`/BrandCreateUpdatePage?id=${item._id}`}
+                                                                    <Link to={`/edit-expense?id=${item._id}`}
                                                                           className="btn text-info btn-outline-light p-2 mb-0 btn-sm">
                                                                         <AiOutlineEdit size={15}/>
                                                                     </Link>
-                                                                    <button
+                                                                    <button onClick={() => DeleteItem(item._id)}
                                                                         className="btn btn-outline-light text-danger p-2 mb-0 btn-sm ms-2">
                                                                         <AiOutlineDelete size={15}/>
                                                                     </button>

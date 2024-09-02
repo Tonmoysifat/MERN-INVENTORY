@@ -3,7 +3,9 @@ import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {AiOutlineDelete, AiOutlineEdit} from "react-icons/ai";
 import ReactPaginate from "react-paginate";
-import {SupplierListRequest} from "../../apiRequest/SupplierApiRequest.js";
+import {DeleteSupplierRequest, SupplierListRequest} from "../../apiRequest/SupplierApiRequest.js";
+import {DeleteAlert} from "../../helper/DeleteAlert.js";
+
 
 const SupplierList = () => {
     let [searchKeyword, setSearchKeyword] = useState("0");
@@ -43,6 +45,15 @@ const SupplierList = () => {
             row.style.display = (row.innerText.includes(e.target.value)) ? '' : 'none'
         })
     }
+    const DeleteItem = async (id) => {
+        let Result = await DeleteAlert();
+        if (Result.isConfirmed) {
+            let DeleteResult = await DeleteSupplierRequest(id)
+            if (DeleteResult) {
+                await SupplierListRequest(1, perPage, searchKeyword);
+            }
+        }
+    }
     return (
         <Fragment>
             <div className="container-fluid my-5">
@@ -53,7 +64,7 @@ const SupplierList = () => {
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-4">
-                                            <h5>Customer List</h5>
+                                            <h5>Suppliers List</h5>
                                         </div>
 
                                         <div className="col-2">
@@ -111,11 +122,11 @@ const SupplierList = () => {
                                                                     className="text-xs text-start">{item.SupplierEmail}</p>
                                                                 </td>
                                                                 <td>
-                                                                    <Link to={`/BrandCreateUpdatePage?id=${item._id}`}
+                                                                    <Link to={`/edit-supplier?id=${item._id}`}
                                                                           className="btn text-info btn-outline-light p-2 mb-0 btn-sm">
                                                                         <AiOutlineEdit size={15}/>
                                                                     </Link>
-                                                                    <button
+                                                                    <button onClick={() => DeleteItem(item._id)}
                                                                         className="btn btn-outline-light text-danger p-2 mb-0 btn-sm ms-2">
                                                                         <AiOutlineDelete size={15}/>
                                                                     </button>

@@ -32,20 +32,19 @@ export const CustomerListRequest = async (pageNo, perPage, SearchArray) => {
         toast.error("Something went Wrong")
     }
 }
-export const CreateCustomerRequest = async (postBody,id) => {
+export const CreateCustomerRequest = async (postBody, id) => {
     try {
         store.dispatch(showLoader())
         let URL = `/api/CreateCustomer`
-        if (id!==null){
+        if (id !== null) {
             URL = `/api/UpdateCustomer/${id}`
         }
         let result = await axios.post(URL, postBody)
         store.dispatch(hideLoader())
         if (result.status === 200 && result.data["status"] === "Success") {
-            if (id!==null){
+            if (id !== null) {
                 toast.success("Updated Successfully")
-            }
-            else{
+            } else {
                 toast.success("Created Successfully")
             }
             store.dispatch(setFormValueReset())
@@ -110,17 +109,14 @@ export async function DeleteCustomerRequest(id) {
         if (result.status === 200 && result.data['status'] === "Associated") {
             toast.error(result.data['data'])
             return false;
-        }
-        if (result.status === 200 && result.data['status'] === "Success") {
+        } else if (result.status === 200 && result.data['status'] === "Success") {
             toast.success("Deleted Successful");
             return true
-        }
-        else {
+        } else {
             toast.error("Request Fail! Try Again")
             return false;
         }
-    }
-    catch (e) {
+    } catch (e) {
         toast.error("Something Went Wrong")
         store.dispatch(hideLoader())
         return false

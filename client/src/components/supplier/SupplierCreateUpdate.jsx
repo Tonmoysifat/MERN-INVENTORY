@@ -1,38 +1,39 @@
-import React, {Fragment, useEffect, useState} from 'react';
-import {setCustomerFormValue, setFormValueReset} from "../../redux/sate-slice/Customer-slice.js";
-import store from "../../redux/store/Store.js";
+import React, {Fragment, useEffect} from 'react';
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import toast from "react-hot-toast";
+import store from "../../redux/store/Store.js";
 import {IsEmail, IsEmpty} from "../../helper/FormHelper.js";
-import {CreateCustomerRequest, CustomerDetailsByIdRequest} from "../../apiRequest/CustomerApiRequest.js";
-const CustomerCreateUpdate = () => {
-    let FormValue = useSelector((state) => (state.customer.FormValue));
+import toast from "react-hot-toast";
+import {CreateSupplierRequest, SupplierDetailsByIdRequest} from "../../apiRequest/SupplierApiRequest.js";
+import {setSupplierFormValue, setSupplierFormValueReset} from "../../redux/sate-slice/Supplier-slice.js";
+
+const SupplierCreateUpdate = () => {
+    let FormValue = useSelector((state) => (state.supplier.FormValue));
     let navigate = useNavigate();
     let params = new URLSearchParams(window.location.search)
     let id = params.get("id")
     useEffect(() => {
         if (id !== null) {
             (async () => {
-                await CustomerDetailsByIdRequest(id);
+                await SupplierDetailsByIdRequest(id);
             })()
         }
         else {
-            store.dispatch(setFormValueReset())
+            store.dispatch(setSupplierFormValueReset())
         }
     }, [id]);
     const SaveChange = async () => {
-        if (IsEmpty(FormValue.CustomerName)) {
+        if (IsEmpty(FormValue.SupplierName)) {
             toast.error("Customer Name Required !")
-        } else if (IsEmpty(FormValue.CustomerPhone)) {
+        } else if (IsEmpty(FormValue.SupplierPhone)) {
             toast.error("Customer Phone  Number Required !")
-        } else if (!IsEmail(FormValue.CustomerEmail)) {
+        } else if (!IsEmail(FormValue.SupplierEmail)) {
             toast.error("Valid Email Address Required !")
-        } else if (IsEmpty(FormValue.CustomerAddress)) {
+        } else if (IsEmpty(FormValue.SupplierAddress)) {
             toast.error("Valid Address Required !")
         } else {
-            if (await CreateCustomerRequest(FormValue, id)) {
-                navigate("/customer-list")
+            if (await CreateSupplierRequest(FormValue, id)) {
+                navigate("/supplier-list")
             }
         }
     }
@@ -45,48 +46,48 @@ const CustomerCreateUpdate = () => {
                         <div className="card">
                             <div className="card-body">
                                 <div className="row">
-                                    <h5>Save Customer</h5>
+                                    <h5>Save Supplier</h5>
                                     <hr className="bg-light"/>
 
                                     <div className="col-4 p-2">
-                                        <label className="form-label">Customer Name</label>
+                                        <label className="form-label">Supplier Name</label>
                                         <input onChange={(e) => {
-                                            store.dispatch(setCustomerFormValue({
-                                                fieldName: "CustomerName",
+                                            store.dispatch(setSupplierFormValue({
+                                                fieldName: "SupplierName",
                                                 value: e.target.value
                                             }))
                                         }} className="form-control form-control-sm"
-                                               value={ FormValue["CustomerName"] } type="text"/>
+                                               value={ FormValue["SupplierName"] } type="text"/>
                                     </div>
                                     <div className="col-4 p-2">
                                         <label className="form-label">Mobile No</label>
                                         <input onChange={(e) => {
-                                            store.dispatch(setCustomerFormValue({
-                                                fieldName: "CustomerPhone",
+                                            store.dispatch(setSupplierFormValue({
+                                                fieldName: "SupplierPhone",
                                                 value: e.target.value
                                             }))
                                         }} className="form-control form-control-sm"
-                                               value={FormValue["CustomerPhone"]} type="text"/>
+                                               value={FormValue["SupplierPhone"]} type="text"/>
                                     </div>
                                     <div className="col-4 p-2">
                                         <label className="form-label">Email </label>
                                         <input onChange={(e) => {
-                                            store.dispatch(setCustomerFormValue({
-                                                fieldName: "CustomerEmail",
+                                            store.dispatch(setSupplierFormValue({
+                                                fieldName: "SupplierEmail",
                                                 value: e.target.value
                                             }))
                                         }} className="form-control form-control-sm"
-                                               value={FormValue["CustomerEmail"]} type="text"/>
+                                               value={FormValue["SupplierEmail"]} type="text"/>
                                     </div>
                                     <div className="col-12 p-2">
                                         <label className="form-label">Address</label>
                                         <textarea onChange={(e) => {
-                                            store.dispatch(setCustomerFormValue({
-                                                fieldName: "CustomerAddress",
+                                            store.dispatch(setSupplierFormValue({
+                                                fieldName: "SupplierAddress",
                                                 value: e.target.value
                                             }))
                                         }} className="form-control form-control-sm"
-                                                  value={FormValue["CustomerAddress"]} rows={4}/>
+                                                  value={FormValue["SupplierAddress"]} rows={4}/>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -105,4 +106,4 @@ const CustomerCreateUpdate = () => {
     );
 };
 
-export default CustomerCreateUpdate;
+export default SupplierCreateUpdate;

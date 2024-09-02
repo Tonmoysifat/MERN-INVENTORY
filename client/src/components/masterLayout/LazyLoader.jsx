@@ -1,5 +1,4 @@
 import React from 'react';
-
 const LazyLoader = () => {
     return (
         <div className="LoadingOverlay">
@@ -9,5 +8,4 @@ const LazyLoader = () => {
         </div>
     );
 };
-
 export default LazyLoader;
