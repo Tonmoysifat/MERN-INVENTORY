@@ -5,6 +5,9 @@ export const brandSlice = createSlice({
     initialState: {
         List: [],
         ListTotal: 0,
+        FormValue: {
+            Name:""
+        }
     },
     reducers: {
         setBrandList: (state, action) => {
@@ -12,9 +15,15 @@ export const brandSlice = createSlice({
         },
         setBrandListTotal: (state, action) => {
             state.ListTotal = action.payload
+        },
+        setBrandFormValue: (state, action) => {
+            state.FormValue[`${action.payload.fieldName}`] = action.payload.value
+        },
+        setBrandFormValueReset: (state, action) => {
+            Object.keys(state.FormValue).forEach((i) => state.FormValue[i] = "");
         }
     }
 });
 
-export const {setBrandList, setBrandListTotal} = brandSlice.actions;
+export const {setBrandList, setBrandListTotal,setBrandFormValue,setBrandFormValueReset} = brandSlice.actions;
 export default brandSlice.reducer;

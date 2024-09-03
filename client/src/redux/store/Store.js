@@ -11,6 +11,7 @@ import purchaseReducer from "../sate-slice/Purchase-slice.js";
 import returnReducer from "../sate-slice/Return-slice.js";
 import saleReducer from "../sate-slice/Sale-slice.js";
 import supplierReducer from "../sate-slice/Supplier-slice.js";
+import reportReducer from "../sate-slice/Report-slice.js";
 
 export default configureStore({
     reducer: {
@@ -26,5 +27,6 @@ export default configureStore({
         return: returnReducer,
         sale: saleReducer,
         supplier: supplierReducer,
+        report: reportReducer,
     }
 })

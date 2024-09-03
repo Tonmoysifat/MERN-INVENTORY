@@ -3,8 +3,8 @@ import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {AiOutlineDelete, AiOutlineEdit} from "react-icons/ai";
 import ReactPaginate from "react-paginate";
-import {ProductListRequest} from "../../apiRequest/ProductApiRequest.js";
-
+import {DeleteProductRequest, ProductListRequest} from "../../apiRequest/ProductApiRequest.js";
+import {DeleteAlert} from "../../helper/DeleteAlert.js";
 const ProductList = () => {
     let [searchKeyword, setSearchKeyword] = useState("0");
     let [perPage, setPerPage] = useState(20);
@@ -43,8 +43,14 @@ const ProductList = () => {
             row.style.display = (row.innerText.includes(e.target.value)) ? '' : 'none'
         })
     }
-    const DetailsPopUp = () => {
-
+    const DeleteItem = async (id) => {
+        let Result = await DeleteAlert();
+        if (Result.isConfirmed) {
+            let DeleteResult = await DeleteProductRequest(id)
+            if (DeleteResult) {
+                await ProductListRequest(1, perPage, searchKeyword);
+            }
+        }
     }
     return (<Fragment>
         <div className="container-fluid my-5">
@@ -133,11 +139,11 @@ const ProductList = () => {
                                                     </td>
 
                                                     <td>
-                                                        <Link to={`/BrandCreateUpdatePage?id=${item._id}`}
+                                                        <Link to={`/edit-product?id=${item._id}`}
                                                               className="btn text-info btn-outline-light p-2 mb-0 btn-sm">
                                                             <AiOutlineEdit size={15}/>
                                                         </Link>
-                                                        <button
+                                                        <button onClick={() => DeleteItem(item._id)}
                                                             className="btn btn-outline-light text-danger p-2 mb-0 btn-sm ms-2">
                                                             <AiOutlineDelete size={15}/>
                                                         </button>

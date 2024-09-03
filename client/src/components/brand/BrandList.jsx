@@ -1,10 +1,12 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {BrandListRequest} from "../../apiRequest/BrandApiRequest.js";
+import {BrandListRequest, DeleteBrandRequest} from "../../apiRequest/BrandApiRequest.js";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {AiOutlineDelete, AiOutlineEdit} from "react-icons/ai";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
+import {DeleteAlert} from "../../helper/DeleteAlert.js";
+import {CustomerListRequest, DeleteCustomerRequest} from "../../apiRequest/CustomerApiRequest.js";
 
 const BrandList = () => {
     let [searchKeyword,setSearchKeyword]=useState("0");
@@ -43,6 +45,15 @@ const BrandList = () => {
         rows.forEach(row => {
             row.style.display = (row.innerText.includes(e.target.value)) ? '' : 'none'
         })
+    }
+    const DeleteItem = async (id) => {
+        let Result = await DeleteAlert();
+        if (Result.isConfirmed) {
+            let DeleteResult = await DeleteBrandRequest(id)
+            if (DeleteResult) {
+                await BrandListRequest(1, perPage, searchKeyword);
+            }
+        }
     }
     return (
         <Fragment>
@@ -97,10 +108,10 @@ const BrandList = () => {
                                                                 <td><p className="text-xs text-start">{item.Name}</p></td>
                                                                 <td><p className="text-xs text-start">{moment(item.createdAt).format('MMMM Do YYYY')}</p></td>
                                                                 <td>
-                                                                    <Link to={`/BrandCreateUpdatePage?id=${item._id}`} className="btn text-info btn-outline-light p-2 mb-0 btn-sm">
+                                                                    <Link to={`/edit-brand?id=${item._id}`} className="btn text-info btn-outline-light p-2 mb-0 btn-sm">
                                                                         <AiOutlineEdit size={15} />
                                                                     </Link>
-                                                                    <button  className="btn btn-outline-light text-danger p-2 mb-0 btn-sm ms-2">
+                                                                    <button onClick={() => DeleteItem(item._id)}  className="btn btn-outline-light text-danger p-2 mb-0 btn-sm ms-2">
                                                                         <AiOutlineDelete size={15} />
                                                                     </button>
                                                                 </td>

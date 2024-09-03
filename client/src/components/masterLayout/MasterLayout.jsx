@@ -129,7 +129,7 @@ const MasterLayout = (props) => {
                 {
                     title: "New Brand",
                     icon: <BsCircle size={16} className="side-bar-subitem-icon"/>,
-                    url: "/BrandCreateUpdatePage",
+                    url: "/new-brand",
                 },
                 {
                     title: "Brand List",
@@ -139,7 +139,7 @@ const MasterLayout = (props) => {
                 {
                     title: "New Category",
                     icon: <BsCircle size={16} className="side-bar-subitem-icon"/>,
-                    url: "/CategoryCreateUpdatePage",
+                    url: "/new-category",
                 },
                 {
                     title: "Category List",
@@ -149,7 +149,7 @@ const MasterLayout = (props) => {
                 {
                     title: "New Product",
                     icon: <BsCircle size={16} className="side-bar-subitem-icon"/>,
-                    url: "/ProductCreateUpdatePage",
+                    url: "/new-product",
                 },
                 {
                     title: "Product List",
@@ -217,22 +217,22 @@ const MasterLayout = (props) => {
                 {
                     title: "Sale Report",
                     icon: <BsCircle size={16} className="side-bar-subitem-icon"/>,
-                    url: "/SaleReportPage",
+                    url: "/sale-report",
                 },
                 {
                     title: "Return Report",
                     icon: <BsCircle size={16} className="side-bar-subitem-icon"/>,
-                    url: "/ReturnReportPage",
+                    url: "/return-report",
                 },
                 {
                     title: "Purchase Report",
                     icon: <BsCircle size={16} className="side-bar-subitem-icon"/>,
-                    url: "/PurchaseReportPage",
+                    url: "/purchase-report",
                 },
                 {
                     title: "Expense Report",
                     icon: <BsCircle size={16} className="side-bar-subitem-icon"/>,
-                    url: "/ExpenseReportPage",
+                    url: "/expense-report",
                 },
             ],
         },

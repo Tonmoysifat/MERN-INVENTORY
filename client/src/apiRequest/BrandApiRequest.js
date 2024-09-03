@@ -1,8 +1,14 @@
 import store from "../redux/store/Store.js";
 import {hideLoader, showLoader} from "../redux/sate-slice/Setting-slice.js";
 import axios from "axios";
-import {setBrandList, setBrandListTotal} from "../redux/sate-slice/Brand-slice.js";
+import {
+    setBrandFormValue,
+    setBrandFormValueReset,
+    setBrandList,
+    setBrandListTotal
+} from "../redux/sate-slice/Brand-slice.js";
 import toast from "react-hot-toast";
+import {setExpenseTypeFormValue, setExpenseTypeFormValueReset} from "../redux/sate-slice/ExpenseType-slice.js";
 
 export const BrandListRequest = async (pageNo, perPage, SearchArray) => {
     try {
@@ -25,5 +31,86 @@ export const BrandListRequest = async (pageNo, perPage, SearchArray) => {
     } catch (e) {
         store.dispatch(hideLoader())
         toast.error("Something went Wrong")
+    }
+}
+
+export const CreateBrandRequest = async (postBody, id) => {
+    try {
+        store.dispatch(showLoader())
+        let URL = `/api/CreateBrand`
+        if (id !== null) {
+            URL = `/api/UpdateBrand/${id}`
+        }
+        let result = await axios.post(URL, postBody)
+        store.dispatch(hideLoader())
+        if (result.status === 200 && result.data["status"] === "Success") {
+            if (id !== null) {
+                toast.success("Updated Successfully")
+            } else {
+                toast.success("Created Successfully")
+            }
+            store.dispatch(setBrandFormValueReset())
+            return true
+        } else if (result.status === 200 && result.data["status"] === "Fail") {
+            if (result.data["data"]["keyPattern"]["Name"] === 1) {
+                toast.error("This Brand is Already Created. Create a new one")
+                return false
+            }
+        } else {
+            toast.error("Something went Wrong")
+            return false
+        }
+    } catch (e) {
+        store.dispatch(hideLoader())
+        toast.error("Something went Wrong")
+        return false
+    }
+
+}
+
+export const BrandDetailsByIdRequest = async (id) => {
+    try {
+        store.dispatch(showLoader())
+        let URL = `/api/BrandDetailsById/${id}`
+        let result = await axios.get(URL)
+        store.dispatch(hideLoader())
+        if (result.status === 200 && result.data["status"] === "Success") {
+            store.dispatch(setBrandFormValue({
+                fieldName: "Name",
+                value: result.data["data"][0]["Name"]
+            }));
+            return true
+        } else {
+            toast.error("Something went Wrong")
+            return false
+        }
+    } catch (e) {
+        store.dispatch(hideLoader())
+        toast.error("Something went Wrong")
+        return false
+    }
+}
+
+export async function DeleteBrandRequest(id) {
+    try {
+        store.dispatch(showLoader())
+        let URL = `/api/DeleteBrand/${id}`
+        const result = await axios.get(URL)
+        store.dispatch(hideLoader())
+        if (result.status === 200 && result.data['status'] === "Associated") {
+            toast.error(result.data['data'])
+            return false;
+        }
+        else if (result.status === 200 && result.data['status'] === "Success") {
+            toast.success("Deleted Successful");
+            return true
+        } else {
+            toast.error("Request Fail! Try Again")
+            return false;
+        }
+    } catch (e) {
+        toast.error("Something Went Wrong")
+        store.dispatch(hideLoader())
+        return false
     }
 }

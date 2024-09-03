@@ -5,6 +5,9 @@ export const categorySlice = createSlice({
     initialState: {
         List: [],
         ListTotal: 0,
+        FormValue: {
+            Name: ""
+        }
     },
     reducers: {
         setCategoryList: (state, action) => {
@@ -12,9 +15,20 @@ export const categorySlice = createSlice({
         },
         setCategoryListTotal: (state, action) => {
             state.ListTotal = action.payload
+        },
+        setCategoryFormValue: (state, action) => {
+            state.FormValue[`${action.payload.fieldName}`] = action.payload.value
+        },
+        setCategoryFormValueReset: (state, action) => {
+            Object.keys(state.FormValue).forEach((i) => state.FormValue[i] = "");
         }
     }
 });
 
-export const {setCategoryList, setCategoryListTotal} = categorySlice.actions;
+export const {
+    setCategoryList,
+    setCategoryListTotal,
+    setCategoryFormValue,
+    setCategoryFormValueReset
+} = categorySlice.actions;
 export default categorySlice.reducer;

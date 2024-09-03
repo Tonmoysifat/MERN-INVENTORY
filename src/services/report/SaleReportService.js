@@ -4,8 +4,20 @@ const SaleReportService = async (req) => {
         let UserEmail = req.headers["email"]
         let FromDate = req.body["FromDate"]
         let ToDate = req.body["ToDate"]
+        const fromDateStr = new Date(FromDate).toISOString().split('T')[0];
+        const toDateStr = new Date(ToDate).toISOString().split('T')[0];
         let data = await SaleProductModel.aggregate([
-            {$match: {UserEmail: UserEmail, createdAt: {$gte: new Date(FromDate), $lte: new Date(ToDate)}}},
+            {
+                $match: {
+                    UserEmail: UserEmail,
+                    $expr: {
+                        $and: [
+                            {$gte: [{$dateToString: {format: "%Y-%m-%d", date: "$createdAt"}}, fromDateStr]},
+                            {$lte: [{$dateToString: {format: "%Y-%m-%d", date: "$createdAt"}}, toDateStr]}
+                        ]
+                    }
+                }
+            },
             {
                 $facet: {
                     Total: [
@@ -20,9 +32,16 @@ const SaleReportService = async (req) => {
                     ],
                     Rows: [
                         {$lookup: {from: "products", localField: "ProductID", foreignField: "_id", as: "products"}},
-                        {$unwind:"$products"},
+                        {$unwind: "$products"},
                         {$lookup: {from: "brands", localField: "products.BrandID", foreignField: "_id", as: "brands"}},
-                        {$lookup: {from: "categories", localField: "products.CategoryID", foreignField: "_id", as: "categories"}},
+                        {
+                            $lookup: {
+                                from: "categories",
+                                localField: "products.CategoryID",
+                                foreignField: "_id",
+                                as: "categories"
+                            }
+                        },
                     ],
                 }
             }

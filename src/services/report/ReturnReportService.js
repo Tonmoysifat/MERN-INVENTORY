@@ -4,8 +4,20 @@ const ReturnReportService = async (req) => {
         let UserEmail = req.headers["email"]
         let FromDate = req.body["FromDate"]
         let ToDate = req.body["ToDate"]
+        const fromDateStr = new Date(FromDate).toISOString().split('T')[0];
+        const toDateStr = new Date(ToDate).toISOString().split('T')[0];
         let data = await ReturnProductModel.aggregate([
-            {$match: {UserEmail: UserEmail, createdAt: {$gte: new Date(FromDate), $lte: new Date(ToDate)}}},
+            {
+                $match: {
+                    UserEmail: UserEmail,
+                    $expr: {
+                        $and: [
+                            {$gte: [{$dateToString: {format: "%Y-%m-%d", date: "$createdAt"}}, fromDateStr]},
+                            {$lte: [{$dateToString: {format: "%Y-%m-%d", date: "$createdAt"}}, toDateStr]}
+                        ]
+                    }
+                }
+            },
             {
                 $facet: {
                     Total: [
