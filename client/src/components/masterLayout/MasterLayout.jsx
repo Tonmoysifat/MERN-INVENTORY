@@ -44,9 +44,7 @@ const MasterLayout = (props) => {
                 })
             )
         })
-        return urlList.findIndex((items) => {
-            items.includes(window.location.pathname)
-        })
+        return urlList.findIndex((items) => items.includes(window.location.pathname))
     }
     const sideBarItems = [
         {
@@ -166,7 +164,7 @@ const MasterLayout = (props) => {
                 {
                     title: "New Purchase",
                     icon: <BsCircle size={16} className="side-bar-subitem-icon"/>,
-                    url: "/PurchaseCreateUpdatePage",
+                    url: "/new-purchase",
                 },
                 {
                     title: "Purchase List",
@@ -183,7 +181,7 @@ const MasterLayout = (props) => {
                 {
                     title: "New Sale",
                     icon: <BsCircle size={16} className="side-bar-subitem-icon"/>,
-                    url: "/SalesCreateUpdatePage",
+                    url: "/new-sale",
                 },
                 {
                     title: "Sale List",
@@ -200,7 +198,7 @@ const MasterLayout = (props) => {
                 {
                     title: "New Return",
                     icon: <BsCircle size={16} className="side-bar-subitem-icon"/>,
-                    url: "/ReturnCreateUpdatePage",
+                    url: "/new-return",
                 },
                 {
                     title: "Return List",
@@ -304,7 +302,7 @@ const MasterLayout = (props) => {
                     {
                         sideBarItems.map((items, index) => {
                             return items.subMenu.length !== 0 ? (
-                                <Accordion.Item key={index} eventKey={`${index}`} className="mt-2">
+                                <Accordion.Item key={index.toString()} eventKey={`${index}`} className="mt-2">
                                     <Accordion.Header>
                                         <div className="side-bar-item">
                                             {items.icon}
@@ -314,12 +312,12 @@ const MasterLayout = (props) => {
                                     <Accordion.Body>
                                         {items.subMenu.map((subItem, index) => (
                                             <NavLink
-                                                key={index}
+                                                key={index.toString()}
                                                 className={(navData) => navData.isActive
                                                     ? "side-bar-subitem-active side-bar-subitem"
                                                     : "side-bar-subitem"}
                                                 to={subItem?.url}
-                                                end="true">
+                                                end>
                                                 {subItem?.icon}
                                                 <span className="side-bar-subitem-caption">{subItem?.title}</span>
                                             </NavLink>
@@ -328,7 +326,7 @@ const MasterLayout = (props) => {
                                 </Accordion.Item>
                             ) : (
                                 <NavLink
-                                    to={items.url}
+                                    to={"/"}
                                     className={(navData) => navData.isActive
                                         ? "side-bar-item-active side-bar-item mt-2" : "side-bar-item mt-2"
                                     }

@@ -79,6 +79,7 @@ router.post("/UpdateProduct/:id", AuthVerification, ProductsController.UpdatePro
 router.get("/ProductList/:pageNo/:perPage/:searchKeyword", AuthVerification, ProductsController.ProductList)
 router.get("/DeleteProduct/:id", AuthVerification, ProductsController.DeleteProduct)
 router.get("/ProductDetailsById/:id", AuthVerification, ProductsController.ProductDetailsById)
+router.get("/ProductDropDown", AuthVerification, ProductsController.ProductDropDown)
 
 // Purchase
 router.post("/CreatePurchase", AuthVerification, PurchaseController.CreatePurchase)

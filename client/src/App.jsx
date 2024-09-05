@@ -30,6 +30,10 @@ import ExpenseReportPage from "./pages/report/ExpenseReportPage.jsx";
 import PurchaseReportPage from "./pages/report/PurchaseReportPage.jsx";
 import SaleReportPage from "./pages/report/SaleReportPage.jsx";
 import ReturnReportPage from "./pages/report/ReturnReportPage.jsx";
+import SaleCreateUpdatePage from "./pages/sale/SaleCreateUpdatePage.jsx";
+import PurchaseCreateUpdatePage from "./pages/purchase/PurchaseCreateUpdatePage.jsx";
+import ReturnCreateUpdatePage from "./pages/return/ReturnCreateUpdatePage.jsx";
+import Page404 from "./pages/notFound/Page404.jsx";
 
 
 const App = () => {
@@ -54,8 +58,11 @@ const App = () => {
                         <Route exact path="/new-supplier" element={<SupplierCreateUpdatePage/>}/>
                         <Route exact path="/edit-supplier" element={<SupplierCreateUpdatePage/>}/>
                         <Route exact path="/purchase-list" element={<PurchaseListPage/>}/>
+                        <Route exact path="/new-purchase" element={<PurchaseCreateUpdatePage/>}/>
                         <Route exact path="/sale-list" element={<SaleListPage/>}/>
+                        <Route exact path="/new-sale" element={<SaleCreateUpdatePage/>}/>
                         <Route exact path="/return-list" element={<ReturnListPage/>}/>
+                        <Route exact path="/new-return" element={<ReturnCreateUpdatePage/>}/>
                         <Route exact path="/product-list" element={<ProductListPage/>}/>
                         <Route exact path="/new-product" element={<ProductCreateUpdatePage/>}/>
                         <Route exact path="/edit-product" element={<ProductCreateUpdatePage/>}/>
@@ -69,6 +76,7 @@ const App = () => {
                         <Route exact path="/purchase-report" element={<PurchaseReportPage/>}/>
                         <Route exact path="/sale-report" element={<SaleReportPage/>}/>
                         <Route exact path="/return-report" element={<ReturnReportPage/>}/>
+                        <Route  path="*" element={<Page404/>}/>
                     </Routes>
                 </BrowserRouter>
             </Fragment>
