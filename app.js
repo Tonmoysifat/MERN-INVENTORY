@@ -20,7 +20,7 @@ let URL = "mongodb+srv://<username>:<password>@atlascluster.ufe1snn.mongodb.net/
 let OPTION = {user: process.env.DB_USER, pass: process.env.DB_PASS, autoIndex: true}
 
 
-mongoose.connect(URL, OPTION).then(() => {
+mongoose.connect(URL, OPTION).then((res) => {
     console.log("Database Connected")
 }).catch((err) => {
     console.log(err)

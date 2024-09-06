@@ -76,7 +76,7 @@ const App = () => {
                         <Route exact path="/purchase-report" element={<PurchaseReportPage/>}/>
                         <Route exact path="/sale-report" element={<SaleReportPage/>}/>
                         <Route exact path="/return-report" element={<ReturnReportPage/>}/>
-                        <Route  path="*" element={<Page404/>}/>
+                        {/*<Route  path="*" element={<Page404/>}/>*/}
                     </Routes>
                 </BrowserRouter>
             </Fragment>
