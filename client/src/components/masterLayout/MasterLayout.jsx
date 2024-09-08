@@ -237,7 +237,6 @@ const MasterLayout = (props) => {
     ];
     const onLogout = async () => {
         await LogoutRequest()
-        localStorage.clear()
         window.location.href = "/login"
     }
 

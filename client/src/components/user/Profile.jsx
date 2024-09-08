@@ -8,21 +8,23 @@ import login from "./Login.jsx";
 
 const Profile = () => {
     let emailRef, firstNameRef, lastNameRef, mobileRef, passwordRef, userImgRef, userImgView = useRef();
-    let navigate=useNavigate();
+    let navigate = useNavigate();
     useEffect(() => {
         (async () => {
             await ProfileDetailsRequest()
         })()
     }, []);
 
-    const ProfileData = useSelector((state) =>state.user.value)
-    const PreviewImage = ()=>{
+    const ProfileData = useSelector((state) => state.user.value)
+    const PreviewImage = () => {
+        // debugger
         let imgView = userImgRef.files[0]
-        getBaseUrl(imgView).then((base64Img)=>{
+        console.log(imgView)
+        getBaseUrl(imgView).then((base64Img) => {
             userImgView.src = base64Img
         })
     }
-    const UpdateMyProfile = async ()=>{
+    const UpdateMyProfile = async () => {
         let email = emailRef.value;
         let firstName = firstNameRef.value;
         let lastName = lastNameRef.value;
@@ -30,24 +32,21 @@ const Profile = () => {
         let password = passwordRef.value;
         let photo = userImgView.src;
 
-        if(!IsEmail(email)){
+        if (!IsEmail(email)) {
             toast.error("Valid Email Address Required!")
-        }
-        else if (IsEmpty(firstName)){
+        } else if (IsEmpty(firstName)) {
             toast.error("First Name Required!")
-        }
-        else if (IsEmpty(lastName)){
+        } else if (IsEmpty(lastName)) {
             toast.error("Last Name Required!")
-        }
-        else if (IsEmpty(mobile)){
+        } else if (IsEmpty(mobile)) {
             toast.error("Mobile Number Required!")
-        }
-        else if (IsEmpty(password)){
+        } else if (IsEmpty(password)) {
             toast.error("A Strong Password Required!")
         }
-        else{
+        else {
+            // debugger
             let result = await ProfileUpdateRequest(email, firstName, lastName, mobile, password, photo)
-            if (result === true){
+            if (result === true) {
                 navigate("/")
             }
         }
@@ -66,7 +65,8 @@ const Profile = () => {
                                     <div className="col-4 p-2">
                                         <label>Change Profile Picture</label>
                                         <input onChange={PreviewImage} ref={(input) => userImgRef = input}
-                                               placeholder="Change Profile Picture" className="form-control animated fadeInUp"
+                                               placeholder="Change Profile Picture"
+                                               className="form-control animated fadeInUp"
                                                type="file"/>
                                     </div>
                                     <div className="col-4 p-2">

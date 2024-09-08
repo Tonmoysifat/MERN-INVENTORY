@@ -137,7 +137,7 @@ export const ProfileUpdateRequest = async (email, firstName, lastName, mobile, p
             setUserDetails(userDetails)
             return true
         } else {
-            toast.error("Something went Wrong")
+            toast.error("Something went ")
             return false
         }
     } catch (e) {
