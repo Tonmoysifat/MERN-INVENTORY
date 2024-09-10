@@ -13,6 +13,7 @@ const SaleController = require("../controllers/sales/SaleController");
 const ReturnController = require("../controllers/returns/ReturnController");
 const ReportController = require("../controllers/report/ReportController");
 const SummaryController = require("../controllers/summary/SummaryController");
+const {upload} = require("../utility/multerConfig");
 const router = express.Router();
 
 // User Profile
@@ -22,6 +23,7 @@ router.post("/Login", UserController.Login)
 router.get("/Logout",AuthVerification, UserController.Logout)
 router.post("/RecoverResetPass", UserController.RecoverResetPass)
 router.post("/ProfileUpdate", AuthVerification, UserController.ProfileUpdate)
+router.post("/ProfileImageUpdate", AuthVerification,upload, UserController.ProfileImageUpdate)
 router.get("/RecoverVerifyEmail/:email", UserController.RecoverVerifyEmail)
 router.get("/RecoverVerifyOTP/:email/:otp", UserController.RecoverVerifyOTP)
 

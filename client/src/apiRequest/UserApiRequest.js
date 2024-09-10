@@ -110,7 +110,7 @@ export const ProfileDetailsRequest = async ()=>{
     }
 }
 
-export const ProfileUpdateRequest = async (email, firstName, lastName, mobile, password, photo) => {
+export const ProfileUpdateRequest = async (email, firstName, lastName, mobile, password) => {
     try {
         store.dispatch(showLoader())
         let URL = `/api/ProfileUpdate`
@@ -120,7 +120,6 @@ export const ProfileUpdateRequest = async (email, firstName, lastName, mobile, p
             lastName: lastName,
             mobile: mobile,
             password: password,
-            photo:photo
         }
         let userDetails = {
             email: email,
@@ -128,7 +127,6 @@ export const ProfileUpdateRequest = async (email, firstName, lastName, mobile, p
             lastName: lastName,
             mobile: mobile,
             password: password,
-            photo:photo
         }
         let res = await axios.post(URL, postBody)
         store.dispatch(hideLoader())
@@ -148,6 +146,26 @@ export const ProfileUpdateRequest = async (email, firstName, lastName, mobile, p
 
 }
 
+export const ProfileImageUpdateRequest = async (photo) => {
+    try {
+        store.dispatch(showLoader())
+        let URL = `/api/ProfileImageUpdate`
+        let res = await axios.post(URL, photo)
+        store.dispatch(hideLoader())
+        if (res.status === 200) {
+            toast.success("Updated Successfully")
+            return true
+        } else {
+            toast.error("Something went ")
+            return false
+        }
+    } catch (e) {
+        store.dispatch(hideLoader())
+        toast.error("Something went Wrong")
+        return false
+    }
+
+}
 export const RecoverVerifyEmailRequest = async (email)=>{
     try {
         store.dispatch(showLoader())
@@ -176,7 +194,6 @@ export const RecoverVerifyEmailRequest = async (email)=>{
         return false
     }
 }
-
 export const RecoverVerifyOTPRequest = async (email,otp)=>{
     try {
         store.dispatch(showLoader())

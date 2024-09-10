@@ -7,6 +7,7 @@ const otpsModel = require("../../models/users/otpsModel");
 const UserUpdateService = require("../../services/user/UserUpdateService");
 const UserVerifyEmailService = require("../../services/user/UserVerifyEmailService");
 const UserVerifyOtpService = require("../../services/user/UserVerifyOtpService");
+const UserProImgUpdateService = require("../../services/user/UserProImgUpdateService");
 
 exports.Registration = async (req, res) => {
     let result = await UserCreateService(req, userModel)
@@ -46,6 +47,10 @@ exports.RecoverResetPass = async (req, res) => {
 }
 exports.ProfileUpdate = async (req, res) => {
     let result = await UserUpdateService(req, userModel)
+    res.status(200).json(result)
+}
+exports.ProfileImageUpdate = async (req, res) => {
+    let result = await UserProImgUpdateService(req, userModel)
     res.status(200).json(result)
 }
 exports.RecoverVerifyEmail = async (req, res) => {

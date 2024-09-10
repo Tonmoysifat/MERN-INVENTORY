@@ -1,4 +1,4 @@
-import React, {Fragment, useRef} from 'react';
+import React, {Fragment, useEffect, useRef} from 'react';
 import {Toaster} from "react-hot-toast";
 import {Accordion, Container, Navbar} from "react-bootstrap";
 import {AiOutlineBank, AiOutlineLogout, AiOutlineMenu, AiOutlineUnorderedList, AiOutlineUser} from "react-icons/ai";
@@ -8,12 +8,18 @@ import {RiDashboardLine} from "react-icons/ri";
 import {BsBagPlus, BsBagX, BsBox, BsCartPlus, BsCircle, BsGraphUp, BsPeople} from "react-icons/bs";
 import {TbTruckDelivery} from "react-icons/tb";
 import {IoCreateOutline} from "react-icons/io5";
-import {LogoutRequest} from "../../apiRequest/UserApiRequest.js";
+import {LogoutRequest, ProfileDetailsRequest} from "../../apiRequest/UserApiRequest.js";
 import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const MasterLayout = (props) => {
     let contentRef, sideNavRaf, topNavRef = useRef()
-
+    useEffect(() => {
+        (async () => {
+            await ProfileDetailsRequest()
+        })()
+    }, []);
+    const ProfileData = useSelector((state) => state.user.value)
     const MenuBarClickHandler = () => {
         let sideNav = sideNavRaf
         let content = contentRef
@@ -260,17 +266,17 @@ const MasterLayout = (props) => {
                         <div className="user-dropdown">
                             <img
                                 className="icon-nav-img icon-nav"
-                                src={getUserDetails()["photo"]}
+                                src={ProfileData['photo'] === "" ? "https://image.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-260nw-2281862025.jpg" : ProfileData['photo']}
                                 alt="proImg"
                             />
                             <div className="user-dropdown-content ">
                                 <div className="mt-4 text-center">
                                     <img
                                         className="icon-nav-img"
-                                        src={getUserDetails()["photo"]}
+                                        src={ProfileData['photo'] === "" ? "https://image.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-260nw-2281862025.jpg" : ProfileData['photo']}
                                         alt="proImg"
                                     />
-                                    <h6>{getUserDetails()["firstName"]}</h6>
+                                    <h6>{ProfileData["firstName"]}</h6>
                                     <hr className="user-dropdown-divider  p-0"/>
                                 </div>
                                 <NavLink to="/profile" className="side-bar-item">

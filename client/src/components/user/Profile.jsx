@@ -1,13 +1,17 @@
 import React, {useEffect, useRef} from 'react';
-import {ProfileDetailsRequest, ProfileUpdateRequest} from "../../apiRequest/UserApiRequest.js";
+import {
+    ProfileDetailsRequest,
+    ProfileImageUpdateRequest,
+    ProfileUpdateRequest
+} from "../../apiRequest/UserApiRequest.js";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {getBaseUrl, IsEmail, IsEmpty} from "../../helper/FormHelper.js";
 import toast from "react-hot-toast";
-import login from "./Login.jsx";
-
+import store from "../../redux/store/Store.js";
+import {setProfilePic} from "../../redux/sate-slice/User-slice.js";
 const Profile = () => {
-    let emailRef, firstNameRef, lastNameRef, mobileRef, passwordRef, userImgRef, userImgView = useRef();
+    let emailRef, firstNameRef, lastNameRef, mobileRef, passwordRef, userImgView = useRef();
     let navigate = useNavigate();
     useEffect(() => {
         (async () => {
@@ -16,13 +20,24 @@ const Profile = () => {
     }, []);
 
     const ProfileData = useSelector((state) => state.user.value)
-    const PreviewImage = () => {
-        // debugger
-        let imgView = userImgRef.files[0]
-        console.log(imgView)
-        getBaseUrl(imgView).then((base64Img) => {
+    const ProfilePic = useSelector((state) => state.user.profilePic)
+
+    // const PreviewImage = async (e) => {
+    //     let imgView = userImgRef.files[0]
+    //     userImgView.src = imgView
+    //     console.log(imgView)
+    //     getBaseUrl(imgView).then((base64Img) => {
+    //         userImgView.src = base64Img
+    //     })
+    // }
+
+    const PreviewImage = async (e) => {
+        await getBaseUrl(e.target.files[0]).then((base64Img) => {
             userImgView.src = base64Img
         })
+        const formData = new FormData();
+        formData.append("file", e.target.files[0]);
+        store.dispatch(setProfilePic(formData))
     }
     const UpdateMyProfile = async () => {
         let email = emailRef.value;
@@ -30,8 +45,6 @@ const Profile = () => {
         let lastName = lastNameRef.value;
         let mobile = mobileRef.value;
         let password = passwordRef.value;
-        let photo = userImgView.src;
-
         if (!IsEmail(email)) {
             toast.error("Valid Email Address Required!")
         } else if (IsEmpty(firstName)) {
@@ -42,11 +55,10 @@ const Profile = () => {
             toast.error("Mobile Number Required!")
         } else if (IsEmpty(password)) {
             toast.error("A Strong Password Required!")
-        }
-        else {
-            // debugger
-            let result = await ProfileUpdateRequest(email, firstName, lastName, mobile, password, photo)
-            if (result === true) {
+        } else {
+            let result = await ProfileUpdateRequest(email, firstName, lastName, mobile, password)
+            let result2 = await ProfileImageUpdateRequest(ProfilePic)
+            if (result === true && result2 === true) {
                 navigate("/")
             }
         }
@@ -59,12 +71,15 @@ const Profile = () => {
                         <div className="card-body">
                             <div className="container-fluid">
                                 <img ref={(input) => userImgView = input} className="icon-nav-img-lg"
-                                     src={ProfileData['photo']} alt=""/>
+                                     src={ProfileData['photo'] === "" ? "https://image.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-260nw-2281862025.jpg" : ProfileData['photo']}
+                                     alt=""/>
                                 <hr/>
                                 <div className="row">
                                     <div className="col-4 p-2">
-                                        <label>Change Profile Picture</label>
-                                        <input onChange={PreviewImage} ref={(input) => userImgRef = input}
+                                        <label htmlFor="file">Change Profile Picture</label>
+                                        <input id="file" name="file"
+                                               onChange={PreviewImage}
+                                            // ref={(input) => userImgRef = input}
                                                placeholder="Change Profile Picture"
                                                className="form-control animated fadeInUp"
                                                type="file"/>
