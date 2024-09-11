@@ -1,1 +1,0 @@
-import{n as s}from"./index-b7hO_5i4.js";const e="/assets/404-BVoR49gf.png",n=()=>s.jsx("div",{className:"center-screen",children:s.jsx("img",{className:"animated fadeIn",src:e})});export{n as default};
