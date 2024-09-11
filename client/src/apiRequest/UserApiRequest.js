@@ -8,7 +8,7 @@ import {setUser} from "../redux/sate-slice/User-slice.js";
 export const RegistrationRequest = async (email, firstName, lastName, mobile, password, photo) => {
     try {
         store.dispatch(showLoader())
-        let URL = `/api/Registration`
+        let URL = `https://mern-inventory.vercel.app/api/Registration`
         let postBody = {
             email: email,
             firstName: firstName,
@@ -47,7 +47,7 @@ export const RegistrationRequest = async (email, firstName, lastName, mobile, pa
 export const LoginRequest = async (email, password) => {
     try {
         store.dispatch(showLoader())
-        let URL = `/api/Login`
+        let URL = `https://mern-inventory.vercel.app/api/Login`
         let postBody = {
             email: email,
             password: password
@@ -75,7 +75,7 @@ export const LoginRequest = async (email, password) => {
 export const LogoutRequest = async ()=>{
     try {
         store.dispatch(showLoader())
-        let URL = `/api/Logout`
+        let URL = `https://mern-inventory.vercel.app/api/Logout`
         let res = await axios.get(URL)
         store.dispatch(hideLoader())
         if(res.status===200){
@@ -94,7 +94,7 @@ export const LogoutRequest = async ()=>{
 export const ProfileDetailsRequest = async ()=>{
     try {
         store.dispatch(showLoader())
-        let URL = `/api/ProfileDetails`
+        let URL = `https://mern-inventory.vercel.app/api/ProfileDetails`
         let res = await axios.get(URL)
         store.dispatch(hideLoader())
         if(res.status===200){
@@ -113,7 +113,7 @@ export const ProfileDetailsRequest = async ()=>{
 export const ProfileUpdateRequest = async (email, firstName, lastName, mobile, password) => {
     try {
         store.dispatch(showLoader())
-        let URL = `/api/ProfileUpdate`
+        let URL = `https://mern-inventory.vercel.app/api/ProfileUpdate`
         let postBody = {
             email: email,
             firstName: firstName,
@@ -149,7 +149,7 @@ export const ProfileUpdateRequest = async (email, firstName, lastName, mobile, p
 export const ProfileImageUpdateRequest = async (photo) => {
     try {
         store.dispatch(showLoader())
-        let URL = `/api/ProfileImageUpdate`
+        let URL = `https://mern-inventory.vercel.app/api/ProfileImageUpdate`
         let res = await axios.post(URL, photo)
         store.dispatch(hideLoader())
         if (res.status === 200) {
@@ -169,7 +169,7 @@ export const ProfileImageUpdateRequest = async (photo) => {
 export const RecoverVerifyEmailRequest = async (email)=>{
     try {
         store.dispatch(showLoader())
-        let URL = `/api/RecoverVerifyEmail/${email}`
+        let URL = `https://mern-inventory.vercel.app/api/RecoverVerifyEmail/${email}`
         let res = await axios.get(URL)
         store.dispatch(hideLoader())
         if(res.status===200){
@@ -197,7 +197,7 @@ export const RecoverVerifyEmailRequest = async (email)=>{
 export const RecoverVerifyOTPRequest = async (email,otp)=>{
     try {
         store.dispatch(showLoader())
-        let URL = `/api/RecoverVerifyOTP/${email}/${otp}`
+        let URL = `https://mern-inventory.vercel.app/api/RecoverVerifyOTP/${email}/${otp}`
         let res = await axios.get(URL)
         store.dispatch(hideLoader())
         if(res.status===200){
@@ -226,7 +226,7 @@ export const RecoverVerifyOTPRequest = async (email,otp)=>{
 export const RecoverResetPassRequest = async (email,otp,NewPassword,ConfirmPassword)=>{
     try {
         store.dispatch(showLoader())
-        let URL = `/api/RecoverResetPass`
+        let URL = `https://mern-inventory.vercel.app/api/RecoverResetPass`
         let postBody = {
             email: email,
             otp:otp,

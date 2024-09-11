@@ -12,7 +12,7 @@ import {
 export const ExpenseSummaryRequest = async () => {
     try {
         store.dispatch(showLoader())
-        let URL = `/api/ExpenseSummary`
+        let URL = `https://mern-inventory.vercel.app/api/ExpenseSummary`
         const result = await axios.get(URL)
         store.dispatch(hideLoader())
         if (result.status === 200 && result.data["status"] === "Success") {
@@ -31,7 +31,7 @@ export const ExpenseSummaryRequest = async () => {
 export const PurchaseSummaryRequest = async () => {
     try {
         store.dispatch(showLoader())
-        let URL = `/api/PurchaseSummary`
+        let URL = `https://mern-inventory.vercel.app/api/PurchaseSummary`
         const result = await axios.get(URL)
         store.dispatch(hideLoader())
         if (result.status === 200 && result.data["status"] === "Success") {
@@ -50,7 +50,7 @@ export const PurchaseSummaryRequest = async () => {
 export const SaleSummaryRequest = async () => {
     try {
         store.dispatch(showLoader())
-        let URL = `/api/SaleSummary`
+        let URL = `https://mern-inventory.vercel.app/api/SaleSummary`
         const result = await axios.get(URL)
         store.dispatch(hideLoader())
         if (result.status === 200 && result.data["status"] === "Success") {
@@ -69,7 +69,7 @@ export const SaleSummaryRequest = async () => {
 export const ReturnSummaryRequest = async () => {
     try {
         store.dispatch(showLoader())
-        let URL = `/api/ReturnSummary`
+        let URL = `https://mern-inventory.vercel.app/api/ReturnSummary`
         const result = await axios.get(URL)
         store.dispatch(hideLoader())
         if (result.status === 200 && result.data["status"] === "Success") {
