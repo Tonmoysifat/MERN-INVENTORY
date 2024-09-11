@@ -330,7 +330,7 @@ const MasterLayout = (props) => {
                                     </Accordion.Body>
                                 </Accordion.Item>
                             ) : (
-                                <NavLink
+                                <NavLink key={index.toString()}
                                     to={"/"}
                                     className={(navData) => navData.isActive
                                         ? "side-bar-item-active side-bar-item mt-2" : "side-bar-item mt-2"
