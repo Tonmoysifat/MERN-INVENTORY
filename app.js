@@ -29,13 +29,13 @@ mongoose.connect(URL, OPTION).then((res) => {
 app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(cors())
-app.use(helmet())
-// app.use(
-//     helmet({
-//         contentSecurityPolicy: false,
-//         xDownloadOptions: false,
-//     }),
-// );
+// app.use(helmet())
+app.use(
+    helmet({
+        contentSecurityPolicy: false,
+        xDownloadOptions: false,
+    }),
+);
 app.use(mongoSanitize())
 app.use(xss())
 app.use(hpp())
@@ -48,14 +48,13 @@ app.use(limiter)
 
 app.set('etag', false);
 app.use("/api", router)
-// app.use(express.static(path.join(__dirname, 'client', 'dist')));
-// app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
-//
-// app.use(express.static('client/dist'));
-//
-//
-// app.get('*', function (req, res) {
-//     res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'))
-// })
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+
+app.use(express.static('client/dist'));
+
+app.get('*', function (req, res) {
+    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'))
+})
 
 module.exports = app;
