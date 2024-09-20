@@ -8,8 +8,6 @@ import {
     setExpenseListTotal
 } from "../redux/sate-slice/Expense-slice.js";
 import toast from "react-hot-toast";
-import {setExpenseTypeFormValue, setExpenseTypeFormValueReset} from "../redux/sate-slice/ExpenseType-slice.js";
-
 export const ExpenseListRequest = async (pageNo, perPage, SearchArray) => {
     try {
         store.dispatch(showLoader())

@@ -16,9 +16,12 @@ export const ExpenseSummaryRequest = async () => {
         const result = await axios.get(URL)
         store.dispatch(hideLoader())
         if (result.status === 200 && result.data["status"] === "Success") {
+            if (result.data["data"][0]["Total"].length > 0 && result.data["data"][0]["last30Days"].length > 0) {
                 store.dispatch(setExpenseSummary(result.data['data'][0]["last30Days"]))
                 store.dispatch(setExpenseTotal(result.data['data'][0]["Total"][0]["TotalAmount"]))
-
+            } else {
+                toast.error("No Data Found")
+            }
         } else {
             toast.error("Something Went Wrong")
         }
@@ -35,9 +38,12 @@ export const PurchaseSummaryRequest = async () => {
         const result = await axios.get(URL)
         store.dispatch(hideLoader())
         if (result.status === 200 && result.data["status"] === "Success") {
-            store.dispatch(setPurchaseSummary(result.data['data'][0]["last30Days"]))
-            store.dispatch(setPurchaseTotal(result.data['data'][0]["Total"][0]["TotalAmount"]))
-
+            if (result.data["data"][0]["Total"].length > 0 && result.data["data"][0]["last30Days"].length > 0) {
+                store.dispatch(setPurchaseSummary(result.data['data'][0]["last30Days"]))
+                store.dispatch(setPurchaseTotal(result.data['data'][0]["Total"][0]["TotalAmount"]))
+            } else {
+                toast.error("No Data Found")
+            }
         } else {
             toast.error("Something Went Wrong")
         }
@@ -54,14 +60,18 @@ export const SaleSummaryRequest = async () => {
         const result = await axios.get(URL)
         store.dispatch(hideLoader())
         if (result.status === 200 && result.data["status"] === "Success") {
-            store.dispatch(setSaleSummary(result.data['data'][0]["last30Days"]))
-            store.dispatch(setSaleTotal(result.data['data'][0]["Total"][0]["TotalAmount"]))
+            if (result.data["data"][0]["Total"].length > 0 && result.data["data"][0]["last30Days"].length > 0) {
+                store.dispatch(setSaleSummary(result.data['data'][0]["last30Days"]))
+                store.dispatch(setSaleTotal(result.data['data'][0]["Total"][0]["TotalAmount"]))
+            } else {
+                toast.error("No Data Found")
+            }
 
         } else {
             toast.error("Something Went Wrong")
         }
     } catch (e) {
-        toast.error("Something Went Wrong")
+        toast.error(" Went Wrong")
         store.dispatch(hideLoader())
     }
 }
@@ -73,9 +83,12 @@ export const ReturnSummaryRequest = async () => {
         const result = await axios.get(URL)
         store.dispatch(hideLoader())
         if (result.status === 200 && result.data["status"] === "Success") {
-            store.dispatch(setReturnSummary(result.data['data'][0]["last30Days"]))
-            store.dispatch(setReturnTotal(result.data['data'][0]["Total"][0]["TotalAmount"]))
-
+            if (result.data["data"][0]["Total"].length > 0 && result.data["data"][0]["last30Days"].length > 0) {
+                store.dispatch(setReturnSummary(result.data['data'][0]["last30Days"]))
+                store.dispatch(setReturnTotal(result.data['data'][0]["Total"][0]["TotalAmount"]))
+            } else {
+                toast.error("No Data Found")
+            }
         } else {
             toast.error("Something Went Wrong")
         }
