@@ -1,6 +1,6 @@
 const express = require("express")
 const UserController = require("../controllers/user/UserController");
-const AuthVerification = require("../Middlewares/AuthVerification")
+const AuthVerification = require("../middlewares/AuthVerification")
 const BrandsController = require("../controllers/brands/BrandsController");
 const CreateCategory = require("../controllers/categories/CategoryController");
 const CustomerController = require("../controllers/customers/CustomerController");
