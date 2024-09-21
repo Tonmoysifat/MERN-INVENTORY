@@ -10,7 +10,7 @@ const ExpenseModel = require("../../models/expenses/ExpenseModel");
 const DetailsByIdService = require("../../services/common/DetailsByIdService");
 
 exports.CreateExpenseType = async (req,res) => {
-    let result = await CreateService(req, ExpenseTypeModel)
+    let result = await CreateService(req, ExpenseTypeModel,"Name")
     res.status(200).json(result)
 }
 

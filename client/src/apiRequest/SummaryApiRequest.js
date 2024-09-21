@@ -20,7 +20,9 @@ export const ExpenseSummaryRequest = async () => {
                 store.dispatch(setExpenseSummary(result.data['data'][0]["last30Days"]))
                 store.dispatch(setExpenseTotal(result.data['data'][0]["Total"][0]["TotalAmount"]))
             } else {
-                toast.error("No Data Found")
+                store.dispatch(setExpenseSummary([]))
+                store.dispatch(setExpenseTotal(0))
+                // toast.error("No Data Found")
             }
         } else {
             toast.error("Something Went Wrong")
@@ -42,7 +44,9 @@ export const PurchaseSummaryRequest = async () => {
                 store.dispatch(setPurchaseSummary(result.data['data'][0]["last30Days"]))
                 store.dispatch(setPurchaseTotal(result.data['data'][0]["Total"][0]["TotalAmount"]))
             } else {
-                toast.error("No Data Found")
+                store.dispatch(setPurchaseSummary([]))
+                store.dispatch(setPurchaseTotal(0))
+                // toast.error("No Data Found")
             }
         } else {
             toast.error("Something Went Wrong")
@@ -64,7 +68,9 @@ export const SaleSummaryRequest = async () => {
                 store.dispatch(setSaleSummary(result.data['data'][0]["last30Days"]))
                 store.dispatch(setSaleTotal(result.data['data'][0]["Total"][0]["TotalAmount"]))
             } else {
-                toast.error("No Data Found")
+                store.dispatch(setSaleSummary([]))
+                store.dispatch(setSaleTotal(0))
+                // toast.error("No Data Found")
             }
 
         } else {
@@ -87,7 +93,9 @@ export const ReturnSummaryRequest = async () => {
                 store.dispatch(setReturnSummary(result.data['data'][0]["last30Days"]))
                 store.dispatch(setReturnTotal(result.data['data'][0]["Total"][0]["TotalAmount"]))
             } else {
-                toast.error("No Data Found")
+                store.dispatch(setReturnSummary([]))
+                store.dispatch(setReturnTotal(0))
+                // toast.error("No Data Found")
             }
         } else {
             toast.error("Something Went Wrong")

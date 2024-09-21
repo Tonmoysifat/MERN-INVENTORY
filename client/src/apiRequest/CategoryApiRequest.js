@@ -51,11 +51,9 @@ export const CreateCategoryRequest = async (postBody, id) => {
             }
             store.dispatch(setCategoryFormValueReset())
             return true
-        } else if (result.status === 200 && result.data["status"] === "Fail") {
-            if (result.data["data"]["keyPattern"]["Name"] === 1) {
-                toast.error("This Category is Already Created. Create a new one")
-                return false
-            }
+        } else if (result.status === 200 && result.data["status"] === "Matched") {
+            toast.error("This Category is Already Created. Create a new one")
+            return false
         } else {
             toast.error("Something went Wrong")
             return false
@@ -100,8 +98,7 @@ export async function DeleteCategoryRequest(id) {
         if (result.status === 200 && result.data['status'] === "Associated") {
             toast.error(result.data['data'])
             return false;
-        }
-        else if (result.status === 200 && result.data['status'] === "Success") {
+        } else if (result.status === 200 && result.data['status'] === "Success") {
             toast.success("Deleted Successful");
             return true
         } else {

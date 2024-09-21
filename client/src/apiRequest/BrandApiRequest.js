@@ -8,7 +8,6 @@ import {
     setBrandListTotal
 } from "../redux/sate-slice/Brand-slice.js";
 import toast from "react-hot-toast";
-import {setExpenseTypeFormValue, setExpenseTypeFormValueReset} from "../redux/sate-slice/ExpenseType-slice.js";
 
 export const BrandListRequest = async (pageNo, perPage, SearchArray) => {
     try {
@@ -51,11 +50,9 @@ export const CreateBrandRequest = async (postBody, id) => {
             }
             store.dispatch(setBrandFormValueReset())
             return true
-        } else if (result.status === 200 && result.data["status"] === "Fail") {
-            if (result.data["data"]["keyPattern"]["Name"] === 1) {
-                toast.error("This Brand is Already Created. Create a new one")
-                return false
-            }
+        } else if (result.status === 200 && result.data["status"] === "Matched") {
+            toast.error("This Brand is Already Created. Create a new one")
+            return false
         } else {
             toast.error("Something went Wrong")
             return false
@@ -100,8 +97,7 @@ export async function DeleteBrandRequest(id) {
         if (result.status === 200 && result.data['status'] === "Associated") {
             toast.error(result.data['data'])
             return false;
-        }
-        else if (result.status === 200 && result.data['status'] === "Success") {
+        } else if (result.status === 200 && result.data['status'] === "Success") {
             toast.success("Deleted Successful");
             return true
         } else {

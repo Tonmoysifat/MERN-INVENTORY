@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     ExpenseSummaryRequest,
     PurchaseSummaryRequest,
@@ -8,15 +8,21 @@ import {
 import {useSelector} from "react-redux";
 import CurrencyFormat from "react-currency-format";
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
+let [toastShow,setToastShow] = useState(false)
     useEffect(() => {
         (async () => {
             await ExpenseSummaryRequest()
             await PurchaseSummaryRequest()
             await SaleSummaryRequest()
             await ReturnSummaryRequest()
+            // await x()
+            setToastShow(true)
+            await tM()
         })();
+
     }, [])
 
     let ExpenseChart = useSelector((state) => state.summary.ExpenseSummary);
@@ -30,7 +36,25 @@ const Dashboard = () => {
 
     let ReturnChart = useSelector((state) => state.summary.ReturnSummary);
     let ReturnTotal = useSelector((state) => state.summary.ReturnTotal);
+    // debugger
 
+    // const x = async ()=>{
+    //     setToastShow(true)
+    // }
+    const tM = async () => {
+        if (toastShow){
+            if (ExpenseChart.length === 0 && PurchaseChart.length === 0 && SaleChart.length === 0 && ReturnChart.length === 0) {
+                toast.error("No data found")
+            }
+        }
+
+    }
+    // useEffect(() => {
+    //     (async ()=>{
+    //         await x()
+    //         await tM()
+    //     })()
+    // }, []);
 
     return (
         <div className="container-fluid">

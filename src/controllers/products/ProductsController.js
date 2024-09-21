@@ -12,7 +12,7 @@ const DetailsByIdService = require("../../services/common/DetailsByIdService");
 const DropDownService = require("../../services/common/DropDownService");
 
 exports.CreateProduct = async (req, res) => {
-    let result = await CreateService(req, ProductsModel)
+    let result = await CreateService(req, ProductsModel,"0")
     res.status(200).json(result)
 }
 

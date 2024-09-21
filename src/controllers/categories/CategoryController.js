@@ -10,7 +10,7 @@ const DeleteService = require("../../services/common/DeleteService");
 const DetailsByIdService = require("../../services/common/DetailsByIdService");
 
 exports.CreateCategory = async (req,res) => {
-    let result = await CreateService(req, CategoryModel)
+    let result = await CreateService(req, CategoryModel,"Name")
     res.status(200).json(result)
 }
 

@@ -10,7 +10,7 @@ const SaleModel = require("../../models/sales/SaleModel");
 const DetailsByIdService = require("../../services/common/DetailsByIdService");
 
 exports.CreateCustomer = async (req,res) => {
-    let result = await CreateService(req, CustomerModel)
+    let result = await CreateService(req, CustomerModel,"CustomerPhone")
     res.status(200).json(result)
 }
 

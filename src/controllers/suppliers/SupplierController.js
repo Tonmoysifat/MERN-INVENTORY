@@ -10,7 +10,7 @@ const PurchaseModel = require("../../models/purchases/PurchaseModel");
 const DetailsByIdService = require("../../services/common/DetailsByIdService");
 
 exports.CreateSupplier = async (req,res) => {
-    let result = await CreateService(req, SupplierModel)
+    let result = await CreateService(req, SupplierModel,"SupplierName")
     res.status(200).json(result)
 }
 
